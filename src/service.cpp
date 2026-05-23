@@ -557,6 +557,8 @@ bool LaunchTrayAppInSession(DWORD session_id) {
         return false;
     }
 
+    ApplyRestrictTerminateDacl(process.hProcess);
+
     WaitForSingleObject(process.hProcess, 3000);
     DWORD early_exit = STILL_ACTIVE;
     GetExitCodeProcess(process.hProcess, &early_exit);
@@ -763,6 +765,7 @@ void RunServiceCore(bool debug_mode) {
     }
 
     SetServiceStatusValue(SERVICE_START_PENDING, NO_ERROR, 3000);
+    ApplyRestrictTerminateDacl(GetCurrentProcess());
     InitializeCriticalSection(&g_process_lock);
     InitializeCriticalSection(&g_state_lock);
     g_users.push_back({L"admin", L"123456"});

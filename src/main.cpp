@@ -456,13 +456,7 @@ namespace {
             walk_pid = GetParentProcessIdOf(walk_pid);
         }
 
-        DWORD state = 0;
-        if (QueryServiceState(&state) && state == SERVICE_RUNNING) {
-            return true;
-        }
-
-        // Launched only by Pract2Service with --service-child.
-        return true;
+        return false;
     }
 
     void RequestServiceStop() {
