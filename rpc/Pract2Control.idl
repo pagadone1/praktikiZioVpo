@@ -1,0 +1,31 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    uuid(b4e2c891-3f5a-4d18-9c62-7a1e903b4d21),
+    version(1.0),
+    implicit_handle(handle_t Pract2Control_IfHandle)
+]
+interface Pract2Control
+{
+    typedef struct _Pract2UserInfo
+    {
+        long is_authenticated;
+        [string] wchar_t username[128];
+    } Pract2UserInfo;
+
+    typedef struct _Pract2LicenseInfo
+    {
+        long has_license;
+        [string] wchar_t expires_at[64];
+    } Pract2LicenseInfo;
+
+    unsigned long RpcStopService(void);
+    unsigned long RpcGetAuthenticatedUser([out] Pract2UserInfo* info);
+    unsigned long RpcRegisterUser([in, string] wchar_t* username, [in, string] wchar_t* password);
+    unsigned long RpcLogin([in, string] wchar_t* username, [in, string] wchar_t* password);
+    unsigned long RpcLogout(void);
+    unsigned long RpcGetLicenseInfo([out] Pract2LicenseInfo* info);
+    unsigned long RpcActivateProduct([in, string] wchar_t* activation_code);
+    unsigned long RpcGetAntivirusStatus([out] long* is_available);
+}

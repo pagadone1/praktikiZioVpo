@@ -1,0 +1,3 @@
+#include "resource.h"
+
+// Icon is loaded in code (IDI_APPLICATION fallback) so build does not depend on tray.ico.
